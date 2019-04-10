@@ -1,0 +1,52 @@
+{{template "header"}}
+    	<title>修改文章 - 我的 beego 博客</title>
+  	</head>
+	<style>
+    body  {
+      background-image: url("https://images.pexels.com/photos/1050308/pexels-photo-1050308.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+      background-position: center; 
+      background-repeat: repeat;
+      background-size: auto;
+    }
+    </style>
+	<body>
+		
+				{{template "navbar" .}}
+
+		
+		<div class="container" style="margin-bottom: 200px;">
+			<h1 style="margin-top: 50px;margin-bottom: 50px;">Edit</h1>
+			<form method="post" action="/topic" enctype="multipart/form-data">
+				<input type="hidden" name="tid" value="{{.Tid}}">
+				<div class="form-group">
+					<label>Title：</label>
+					<input type="text" class="form-control" name="title" value="{{.Topic.Title}}">
+				</div>
+				
+				<div class="form-group">
+					<label>Category：</label>
+					<input type="text" class="form-control" name="category" value="{{.Topic.Category}}">
+				</div>
+				
+				<div class="form-group">
+					<label>Tag：</label>
+					<input type="text" class="form-control" name="lable" value="{{.Topic.Lables}}">
+				</div>
+
+				<div class="form-group">
+					<label>Content：</label>
+					<textarea name="content" cols="30" rows="10" class="form-control">{{.Topic.Content}}</textarea>
+				</div>
+
+				<div class="form-group">
+					<label>Attachment（<a href="/attachment/{{.Topic.Attachment}}">{{.Topic.Attachment}}</a>）：</label>
+					<input type="file" class="form-control" name="attachment">
+				</div>
+				<button type="submit" class="btn btn-primary btn-block">Edit Done</button>
+			</form>
+		</div>
+
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	</body>
+</html>

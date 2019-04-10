@@ -1,0 +1,68 @@
+{{template "header"}}
+    	<title>{{.Topic.Title}} - Bolog</title>
+  	</head>
+	<style>
+    body  {
+      background-image: url("https://images.pexels.com/photos/1303092/pexels-photo-1303092.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+      background-position: center; 
+      background-repeat: repeat;
+      background-size: auto;
+    }
+    </style>
+	<body>
+
+		{{template "navbar" .}}
+
+		
+		<div class="container">
+			{{$lables := .Lables}}
+			{{with .Topic}}
+			<h1 style="margin-top: 50px;">{{.Title}} <h5>Category: {{.Category}}</h5></h1>
+			<h6>Created: {{.Created}},  {{.Views}} views， {{.ReplyCount}} replies</h6>
+			<h6>
+				Tag:
+				{{range $lables}}
+				<a href="/?lable={{.}}">{{.}}</a>
+				{{end}}
+			</h6>
+			<h6 style="margin-top: 30px;margin-bottom: 70px;">
+			{{.Content}}
+		    </h6>
+		    <hr>
+			<h5 style="margin-top: 20px;margin-bottom: 20px;">Attachment：<a href="/attachment/{{.Attachment}}">{{.Attachment}}</a></h5>
+			{{end}}
+			<hr>
+		</div>
+		
+		<div class="container" style="margin-bottom: 200px;">
+			<h5>
+				Comment:
+			</h5>
+            {{$tid := .Topic.Id}}
+			{{$isLogin := .IsLogin}}
+            {{range .Replies}}
+            <h6>{{.Name}} <small>{{.Created}} <a href="/reply/delete?tid={{$tid}}&rid={{.Id}}">Delete</a></small> </h6>
+            {{.Content}}
+            <hr>
+            {{end}}
+
+		    <h4>Please reply below:</h4>
+		    <form method="post" action="/reply/add">
+		        <input type="hidden" name="tid" value="{{.Topic.Id}}">
+		        <div class="form-group">
+                    <label>Nickname：</label>
+                    <input type="text" class="form-control" name="nickname">
+		        </div>
+		        
+		        <div class="form-group">
+		            <label>Content：</label>
+		            <textarea name="content" id="" cols="30" rows="10" class="form-control"></textarea>
+		        </div>
+		        <button class="btn btn-primary btn-block" type="submit">Reply</button>
+		    </form>
+		</div>
+
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	</body>
+</html>
